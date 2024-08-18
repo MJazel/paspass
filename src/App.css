@@ -16,6 +16,7 @@ body {
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative; /* Added to position the team button */
 }
 
 h1 {
@@ -75,7 +76,7 @@ li:hover {
 }
 
 .copy-button {
-  margin-left: 40px;
+  margin-left: 10px;
   padding: 8px 20px;
   border: none;
   border-radius: 5px;
@@ -83,11 +84,60 @@ li:hover {
   color: #fff;
   font-size: 0.9rem;
   cursor: pointer;
-  margin-left: 10px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .copy-button:hover {
   background-color: #212d4e;
   transform: scale(1.1);
+}
+
+.team-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4A90E2;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.team-button:hover {
+  background-color: #357ABD;
+  transform: scale(1.05);
+}
+
+.team-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-content {
+  background-color: #fff;
+  border-radius: 5%;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.team-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-content li {
+  margin: 10px 0;
 }

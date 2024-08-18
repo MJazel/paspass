@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 function generatePassword(baseWord) {
@@ -48,13 +48,14 @@ function generatePassword(baseWord) {
   return password.slice(0, 14); 
 }
 
-
 function App() {
   const [inputWord, setInputWord] = useState('');
   const [passwords, setPasswords] = useState([]);
+  const [showTeam, setShowTeam] = useState(false);
+  const popupRef = useRef(null);
 
   const handleGenerate = () => {
-    if(inputWord === "") return;
+    if (inputWord === "") return;
     const newPasswords = [];
     for (let i = 0; i < 5; i++) {
       newPasswords.push(generatePassword(inputWord.replace(/\s/g, '')));
@@ -66,6 +67,27 @@ function App() {
     navigator.clipboard.writeText(password);
     alert(`Contraseña copiada: ${password}`);
   };
+
+  const handleToggleTeam = () => {
+    setShowTeam(!showTeam);
+  };
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowTeam(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showTeam) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showTeam]);
 
   return (
     <div className="container">
@@ -85,6 +107,22 @@ function App() {
           </li>
         ))}
       </ul>
+      <button className="team-button" onClick={handleToggleTeam}>Miembros del Equipo</button>
+      {showTeam && (
+        <div className="team-popup">
+          <div className="team-content" ref={popupRef}>
+            <h2>Miembros del Equipo</h2>
+            <ul>
+              <li>Abel Sanchez Urrea</li>
+              <li>Merari Jazel Osuna Bueno</li>
+              <li>Oscar Axel Vega Piña</li>
+              <li>Ruanet Alejandro Ozuna Diaz</li>
+              <li>Juan Manuel Rivera Puente</li>
+              <li>Irving Zuriel Quintero Herrera</li>
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
